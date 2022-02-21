@@ -1,22 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useAsyncMemo } from "use-async-memo";
-import solve from "./boggle";
-
-/**
- * @return Array of arrays representing values on a square board. BOARD_DIMENSION dictates the size.
- */
-const createRandomBoard = (dimension) => {
-  const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-
-  let boardValues = [];
-  for (let i = 0; i < dimension; i++) {
-    boardValues[i] = [];
-    for (let j = 0; j < dimension; j++) {
-      boardValues[i][j] = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
-    }
-  }
-  return boardValues;
-};
+import { solve, createRandomBoard } from "./boggle";
 
 function Slider({ value, onChange }) {
   return (
@@ -35,7 +19,9 @@ function Slider({ value, onChange }) {
   );
 }
 
-function Game({ board, boardDimension }) {
+export function Game({ board }) {
+  const boardDimension = board.length;
+
   return (
     <div className="col-span-2">
       <div className="m-auto flex">
@@ -107,7 +93,7 @@ function App() {
 
   useEffect(() => {
     dictionary && setResults(solve(board, dictionary));
-  }, [dictionary, boardDimension]);
+  }, [board, dictionary, boardDimension]);
 
   return (
     <div className="h-screen grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">

@@ -28,7 +28,7 @@ const MakeTrie = function (dict) {
       const code = curLetter.charCodeAt(0) - 97;
 
       // Make sure the character is in a-z
-      if (97 <= code < 123) {
+      if (96 < code < 123) {
         let nextNode = curNode.children[code];
 
         // Don't repeat characters!
@@ -112,7 +112,23 @@ const boggle = function (grid, dict, mustHave) {
   return words;
 };
 
-export default function solve(board, dictionary) {
+/**
+ * @return Array of arrays representing values on a square board. BOARD_DIMENSION dictates the size.
+ */
+export const createRandomBoard = (dimension) => {
+  const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+
+  let boardValues = [];
+  for (let i = 0; i < dimension; i++) {
+    boardValues[i] = [];
+    for (let j = 0; j < dimension; j++) {
+      boardValues[i][j] = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+    }
+  }
+  return boardValues;
+};
+
+export function solve(board, dictionary) {
   var d = new MakeTrie(new Set(dictionary));
 
   const grid = board.map((row) => row.join(""));
