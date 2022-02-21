@@ -1,57 +1,75 @@
+// This solution is derived from the following GitHub Gist.
+// I refactored it to clean-up the overall syntax, and to add my own comments about how it works.
+//
 // https://gist.github.com/JonnoFTW/fbdc5079174c3bb448e0951de9ebbe94#file-boggle_solver-js
 
-var TrieNode = function (parent, value) {
+const TrieNode = function (parent, value) {
   this.parent = parent;
-  this.children = new Array(26);
+  this.children = new Array(26); // 26 letters in the alphabet, so there will be 26 leaves in the trie
   this.isWord = false;
-  if (parent !== undefined) {
-    parent.children[value.charCodeAt(0) - 97] = this;
+
+  // Check whether is root
+  if (typeof parent !== "undefined") {
+    parent.children[value.charCodeAt(0) - 97] = this; // https://stackoverflow.com/questions/22624379/how-to-convert-letters-to-numbers-with-javascript
   }
 };
 
-var MakeTrie = function (dict) {
-  var root = new TrieNode(undefined, "");
-  // console.log(root);
-  for (let word of dict.values()) {
-    var curNode = root;
+// Fills-out the trie with the dictionary words
+const MakeTrie = function (dict) {
+  const root = new TrieNode(undefined, "");
 
-    for (var i = 0; i < word.length; i++) {
-      var letter = word[i];
-      var ord = letter.charCodeAt(0);
-      if (97 <= ord < 123) {
-        // console.log(curNode);
-        var nextNode = curNode.children[ord - 97];
-        if (nextNode === undefined) {
-          nextNode = new TrieNode(curNode, letter);
+  // Loop through dictionary words
+  for (let word of dict.values()) {
+    let curNode = root;
+
+    // Loop through the letters in each word
+    for (let i = 0; i < word.length; i++) {
+      const curLetter = word[i];
+      const code = curLetter.charCodeAt(0) - 97;
+
+      // Make sure the character is in a-z
+      if (97 <= code < 123) {
+        let nextNode = curNode.children[code];
+
+        // Don't repeat characters!
+        if (typeof nextNode === "undefined") {
+          nextNode = new TrieNode(curNode, curLetter);
         }
+
         curNode = nextNode;
       }
     }
+
     curNode.isWord = true;
   }
+
   return root;
 };
 
-var BoggleWords = function (grid, dict, mustHave) {
-  var rows = grid.length;
-  var cols = grid[0].length;
-  var queue = [];
-  var words = new Set();
+const boggle = function (grid, dict, mustHave) {
+  const rows = grid.length;
+  const cols = grid[0].length;
+  const queue = [];
+  const words = new Set(); // Set will discard any duplicate words
 
-  for (var y = 0; y < cols; y++) {
-    for (var x = 0; x < rows; x++) {
-      var c = grid[y][x];
-      var ord = c.charCodeAt(0);
-      var node = dict.children[ord - 97];
+  // Fill-up the queue
+  for (let y = 0; y < cols; y++) {
+    for (let x = 0; x < rows; x++) {
+      const curLetter = grid[y][x];
+      const code = curLetter.charCodeAt(0);
+      const node = dict.children[code - 97]; // Get code relative to "a"
 
-      if (node !== undefined) {
-        queue.push([x, y, c, node, [[x, y]]]);
+      // Make sure that the dictionary contains a word beginning with the current letter
+      if (typeof node !== "undefined") {
+        queue.push([x, y, curLetter, node, [[x, y]]]); // [x, y] === board position
       }
     }
   }
 
   while (queue.length !== 0) {
-    var [x, y, s, node, h] = queue.pop();
+    const [x, y, s, node, h] = queue.pop(); // s stands for "string", h stands for "history"
+
+    // Loop through the eight adjacent board positions
     for (let [dx, dy] of [
       [1, 0],
       [1, -1],
@@ -62,29 +80,29 @@ var BoggleWords = function (grid, dict, mustHave) {
       [0, 1],
       [1, 1],
     ]) {
-      var [x2, y2] = [x + dx, y + dy];
-      if (
-        h.find(function (el) {
-          return el[0] === x2 && el[1] === y2;
-        }) !== undefined
-      ) {
+      const [x2, y2] = [x + dx, y + dy];
+
+      // Make the next move is on the board
+      if (typeof h.find((el) => el[0] === x2 && el[1] === y2) !== "undefined") {
         continue;
       }
 
-      // console.log(x2,y2, h);
       if (0 <= x2 && x2 < cols && 0 <= y2 && y2 < rows) {
-        var newHist = h.slice();
-        newHist.push([x2, y2]);
-        var s2 = s + grid[y2][x2];
-        var node2 = node.children[grid[y2][x2].charCodeAt(0) - 97];
-        if (node2 !== undefined) {
-          // console.log(s2);
-          if (node2.isWord) {
-            if (mustHave === undefined || s2.indexOf(mustHave) !== -1)
-              words.add(s2);
+        const newHist = h.slice();
 
-            // console.log(newHist, s2);
+        newHist.push([x2, y2]); // Push the next move to the history
+
+        const s2 = s + grid[y2][x2]; // Concat the next letter to the word string
+        const node2 = node.children[grid[y2][x2].charCodeAt(0) - 97]; // Make sure there's a next word
+
+        if (typeof node2 !== "undefined") {
+          if (node2.isWord) {
+            // This mustHave flag allows a letter to be specified; not actually necessary for the Rstudio exercise
+            if (typeof mustHave === "undefined" || s2.indexOf(mustHave) !== -1)
+              words.add(s2);
           }
+
+          // Push the new item to the queue
           queue.push([x2, y2, s2, node2, newHist]);
         }
       }
@@ -100,7 +118,7 @@ export default function solve(board, dictionary) {
   const grid = board.map((row) => row.join(""));
 
   const timeStart = performance.now();
-  const words = BoggleWords(grid, d);
+  const words = boggle(grid, d);
   const timeToSolve = performance.now() - timeStart;
 
   return { words, timeToSolve };
