@@ -1,5 +1,5 @@
 import { shallow } from "enzyme";
-import App, { Game } from "./App";
+import { Random } from "./Board";
 
 describe("the Boggle board", () => {
   const board = [
@@ -8,7 +8,7 @@ describe("the Boggle board", () => {
     ["t", "b", "j", "r"],
     ["u", "a", "c", "p"],
   ];
-  const gameWrapper = shallow(<Game board={board} />);
+  const gameWrapper = shallow(<Random board={board} />);
   const grid = gameWrapper.find(".grid");
 
   test("should be the correct length", () => {

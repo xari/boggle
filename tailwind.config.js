@@ -5,7 +5,7 @@ module.exports = {
   },
   plugins: [],
   purge: {
-    content: ["./src/**/*.{js,jsx}"],
+    content: ["./src/**/*.{js,jsx}", "./public/index.html"],
     safelist: [
       "grid-cols-3",
       "grid-cols-4",

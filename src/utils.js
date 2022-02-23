@@ -1,4 +1,24 @@
-// This solution is derived from the following GitHub Gist.
+export function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+/**
+ * @return Array of arrays representing values on a square board. BOARD_DIMENSION dictates the size.
+ */
+export const createRandomBoard = (dimension) => {
+  const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+
+  let boardValues = [];
+  for (let i = 0; i < dimension; i++) {
+    boardValues[i] = [];
+    for (let j = 0; j < dimension; j++) {
+      boardValues[i][j] = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+    }
+  }
+  return boardValues;
+};
+
+// I derived this Trie/DFS approach from the following GitHub Gist.
 // I refactored it to clean-up the overall syntax, and to add my own comments about how it works.
 //
 // https://gist.github.com/JonnoFTW/fbdc5079174c3bb448e0951de9ebbe94#file-boggle_solver-js
@@ -110,22 +130,6 @@ const boggle = function (grid, dict, mustHave) {
   }
 
   return words;
-};
-
-/**
- * @return Array of arrays representing values on a square board. BOARD_DIMENSION dictates the size.
- */
-export const createRandomBoard = (dimension) => {
-  const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-
-  let boardValues = [];
-  for (let i = 0; i < dimension; i++) {
-    boardValues[i] = [];
-    for (let j = 0; j < dimension; j++) {
-      boardValues[i][j] = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
-    }
-  }
-  return boardValues;
 };
 
 export function solve(board, dictionary) {

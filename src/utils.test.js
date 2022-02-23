@@ -1,10 +1,10 @@
-import { solve, createRandomBoard } from "./boggle";
+import { solve, createRandomBoard } from "./utils";
 
 describe("generating a random Boggle board", () => {
   const dimensions = 3;
   const board = createRandomBoard(dimensions);
 
-  test("the board's dimensions", () => {
+  test("it should have the correct dimensions", () => {
     expect(board).toHaveLength(dimensions);
 
     [...Array(dimensions).keys()].forEach((col) =>
@@ -39,7 +39,7 @@ describe("finding specific words in a Boggle board", () => {
     dictionary = data.words.filter((word) => word.length >= 3);
   });
 
-  test("that the board contains the words", () => {
+  test("the board contains the words", () => {
     const { words } = solve(board, dictionary);
 
     testWords.forEach((word) => expect([...words]).toContain(word));
