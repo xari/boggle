@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch } from "@headlessui/react";
 import { classNames } from "./utils";
+import "./Controls.css";
 
 function Range({ value, onChange }) {
   return (
@@ -25,7 +26,7 @@ function Range({ value, onChange }) {
 
 function BoardSwitch({ enableRandom, setEnableRandom }) {
   return (
-    <Switch.Group as="div" className="">
+    <Switch.Group as="div">
       <span className="flex-grow flex flex-col">
         <Switch.Label
           as="span"

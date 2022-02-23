@@ -5,7 +5,7 @@ import Board from "./Board";
 import { solve, createRandomBoard } from "./utils";
 import "./App.css";
 
-function Results({ board }) {
+export function Results({ board }) {
   // Load and memoize the dictionary
   const dictionary = useAsyncMemo(
     async () =>
@@ -17,9 +17,12 @@ function Results({ board }) {
 
   const [results, setResults] = useState(null);
 
-  useEffect(() => {
-    dictionary && setResults(board !== null ? solve(board, dictionary) : null);
-  }, [board, dictionary]);
+  useEffect(
+    () =>
+      dictionary &&
+      setResults(board !== null ? solve(board, dictionary) : null),
+    [board, dictionary]
+  );
 
   const { words, timeToSolve } = results !== null && results;
 
@@ -54,8 +57,8 @@ function Results({ board }) {
 function App() {
   // State
   const [dimensions, setDimensions] = useState(4);
-  const [enableRandom, setEnableRandom] = useState(true);
-  const [board, setBoard] = useState(createRandomBoard(dimensions));
+  const [enableRandom, setEnableRandom] = useState(false);
+  const [board, setBoard] = useState(null);
 
   // Controlled state updaters
   const updateDimensions = (e) => setDimensions(parseInt(e.target.value));
@@ -66,7 +69,7 @@ function App() {
 
   return (
     <div className="my-8 mx-auto w-full max-w-xl px-4 sm:px-6 lg:px-8">
-      <h1 className="mt-5 mb-8 text-8xl text-center text-emerald-500">
+      <h1 className="mt-5 mb-8 text-8xl text-center text-emerald-500 font-stroke font-typewriter">
         Boggle!
       </h1>
       <Controls

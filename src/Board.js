@@ -2,64 +2,65 @@ import React, { useEffect } from "react";
 import { classNames } from "./utils";
 import { createRandomBoard } from "./utils";
 
-function Custom({ setBoard, dimensions }) {
+export function Custom({ setBoard, dimensions }) {
   useEffect(() => {
-    return () => setBoard(createRandomBoard(dimensions)); // Generate a new random board on unmount
-  }, []);
+    setBoard(null); // Clears the results whenever the board is resized
+
+    return () => setBoard(createRandomBoard(dimensions)); // Generates a new random board on unmount
+  }, [dimensions]);
 
   const letterCount = dimensions * dimensions;
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Avoid page refresh
 
-    const board = [...e.target.elements.letter].reduce(
+    const newBoard = [...e.target.elements.letter].reduce(
       ([acc, row], inputNode, i) => {
         const letter = inputNode.value;
 
         acc[row].push(letter.toLowerCase());
 
         if (i < letterCount - 1) {
-          (i + 1) % dimensions === 0 && row++; // Increment the row every nth + 1 iteration
+          (i + 1) % dimensions === 0 && row++; // If 4 dimensions, new row every 5th item, .etc
           return [acc, row];
         } else {
-          return acc;
+          return acc; // When no more letters to reduce, return the accumulator
         }
       },
       [[...Array(dimensions).keys()].map((row) => []), 0] // Pre-fill the accumulator with empty "row" arrays
     );
 
-    setBoard(board);
+    setBoard(newBoard);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={`grid grid-cols-${dimensions} gap-1`}
-    >
-      {[...Array(letterCount).keys()].map((i) => (
-        <div
-          key={i}
-          className={classNames(
-            dimensions === 4
-              ? "h-28 w-28 text-5xl"
-              : dimensions === 5
-              ? "h-24 w-24 text-4xl"
-              : "h-20 w-20 text-3xl",
-            "flex p-3 border-2 content-center items-center text-center rounded"
-          )}
-        >
-          <input
-            type="text"
-            name={`letter`}
-            className="w-full font-light text-center focus:outline-none"
-            maxLength="1"
-            pattern="[A-Za-z]"
-            required
-          />
-        </div>
-      ))}
+    <form onSubmit={handleSubmit}>
+      <div className={`grid grid-cols-${dimensions} gap-1`}>
+        {[...Array(letterCount).keys()].map((i) => (
+          <div
+            key={i}
+            className={classNames(
+              dimensions === 4
+                ? "h-28 w-28 text-5xl"
+                : dimensions === 5
+                ? "h-24 w-24 text-4xl"
+                : "h-20 w-20 text-3xl",
+              "flex p-3 border-2 content-center items-center text-center rounded"
+            )}
+          >
+            <input
+              type="text"
+              name={`letter`}
+              className="w-full font-light text-center focus:outline-none"
+              maxLength="1"
+              pattern="[A-Za-z]"
+              required
+            />
+          </div>
+        ))}
+      </div>
       <input
         type="submit"
-        className="my-2 inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+        className="my-2 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
         value="Boggle!"
       />
     </form>

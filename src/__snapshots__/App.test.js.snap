@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the Results render without any unexpected changes 1`] = `
+<div
+  className="my-5"
+>
+  <div
+    className="flex flex-wrap py-2 -mx-1 w-full"
+  />
+</div>
+`;
