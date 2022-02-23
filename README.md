@@ -61,3 +61,13 @@ Memoized callbacks are passed-down to nested components that they can use to upd
 This component renders a series of form inputs representing each letter on the board.
 These inputs use only HTML for their validation.
 When the form is submitted, the letters must be parsed from the `NodeList` of text inputs, and reduced into the nested format that represents a Boggle board (ex. `[["l", "k", "v", ...], ...]`).
+
+## A note about accessibility
+
+I did a free audit of the app at [deque.com](https://audit.deque.com/), which passed for all checks, except for the following one about color-contrast.
+
+> This page passed 28 of our checks. But, sorry to say we did find one critical or serious problem that will affect people with Low Vision and Color-blindness.
+
+I assume that this is refering to the page header, and probably also to the submit button.
+
+![Accessibility audit preview](./accessibility-preview.png)
