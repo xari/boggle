@@ -54,6 +54,7 @@ export function Custom({ setBoard, dimensions }) {
               maxLength="1"
               pattern="[A-Za-z]"
               required
+              aria-label="Boggle letter"
             />
           </div>
         ))}
@@ -62,6 +63,7 @@ export function Custom({ setBoard, dimensions }) {
         type="submit"
         className="my-2 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
         value="Find all words"
+        aria-label="Solve the board"
       />
     </form>
   );
