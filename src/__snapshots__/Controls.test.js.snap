@@ -35,7 +35,7 @@ Array [
         className="text-md font-medium text-gray-900"
         id="headlessui-label-1"
       >
-        Use auto-generated board
+        Solve an auto-generated board
       </span>
       <span
         className="text-sm text-gray-500"

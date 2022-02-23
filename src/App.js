@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useAsyncMemo } from "use-async-memo";
 import Controls from "./Controls";
 import Board from "./Board";
-import { solve, createRandomBoard } from "./utils";
+import { solve } from "./utils";
 import "./App.css";
 
 export function Results({ board }) {
@@ -60,12 +60,21 @@ function App() {
   const [enableRandom, setEnableRandom] = useState(false);
   const [board, setBoard] = useState(null);
 
-  // Controlled state updaters
-  const updateDimensions = (e) => setDimensions(parseInt(e.target.value));
-  const updateEnableRandom = () => setEnableRandom(!enableRandom);
-  const updateBoard = (newBoard) => {
-    setBoard(newBoard);
-  };
+  // Controlled & memoized state updaters
+  const updateDimensions = useCallback(
+    (e) => setDimensions(parseInt(e.target.value)),
+    [setDimensions]
+  );
+  const updateEnableRandom = useCallback(
+    () => setEnableRandom(!enableRandom),
+    [enableRandom, setEnableRandom]
+  );
+  const updateBoard = useCallback(
+    (newBoard) => {
+      setBoard(newBoard);
+    },
+    [setBoard]
+  );
 
   return (
     <div className="my-8 mx-auto w-full max-w-xl px-4 sm:px-6 lg:px-8">

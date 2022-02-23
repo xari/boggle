@@ -7,7 +7,7 @@ export function Custom({ setBoard, dimensions }) {
     setBoard(null); // Clears the results whenever the board is resized
 
     return () => setBoard(createRandomBoard(dimensions)); // Generates a new random board on unmount
-  }, [dimensions]);
+  }, [setBoard, dimensions]);
 
   const letterCount = dimensions * dimensions;
   const handleSubmit = (e) => {
@@ -40,10 +40,10 @@ export function Custom({ setBoard, dimensions }) {
             key={i}
             className={classNames(
               dimensions === 4
-                ? "h-28 w-28 text-5xl"
+                ? "h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl"
                 : dimensions === 5
-                ? "h-24 w-24 text-4xl"
-                : "h-20 w-20 text-3xl",
+                ? "h-20 sm:h-24 w-20 sm:w-24 sm:text-2xl md:text-3xl"
+                : "h-16 sm:h-20 w-16 sm:w-20 sm:text-xl md:text-2xl",
               "flex p-3 border-2 content-center items-center text-center rounded"
             )}
           >
@@ -61,7 +61,7 @@ export function Custom({ setBoard, dimensions }) {
       <input
         type="submit"
         className="my-2 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
-        value="Boggle!"
+        value="Find all words"
       />
     </form>
   );
@@ -72,7 +72,7 @@ export function Random({ board, setBoard, dimensions }) {
     setBoard(createRandomBoard(dimensions)); // Generate a new random board if the dimensions change
 
     return () => setBoard(null); // Clear the board on unmount
-  }, [dimensions]);
+  }, [setBoard, dimensions]);
 
   return (
     <div className={`grid grid-cols-${dimensions} gap-1`}>
@@ -84,10 +84,10 @@ export function Random({ board, setBoard, dimensions }) {
               key={i}
               className={classNames(
                 dimensions === 4
-                  ? "h-28 w-28 text-5xl"
+                  ? "h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl"
                   : dimensions === 5
-                  ? "h-24 w-24 text-4xl"
-                  : "h-20 w-20 text-3xl",
+                  ? "h-20 sm:h-24 w-20 sm:w-24 sm:text-2xl md:text-3xl"
+                  : "h-16 sm:h-20 w-16 sm:w-20 sm:text-xl md:text-2xl",
                 "flex p-3 border-2 content-center items-center text-center rounded"
               )}
             >
