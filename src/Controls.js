@@ -33,7 +33,7 @@ function BoardSwitch({ enableRandom, setEnableRandom }) {
           className="text-md font-medium text-gray-900"
           passive
         >
-          Solve an auto-generated board
+          Solve an auto-generated board instead
         </Switch.Label>
         <Switch.Description as="span" className="text-sm text-gray-500">
           Toggle betwenn an auto-generated board and a customizable one.
