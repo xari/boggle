@@ -20,6 +20,7 @@ Array [
       </span>
     </span>
     <input
+      aria-label="Boggle board size"
       max="6"
       min="4"
       step="1"

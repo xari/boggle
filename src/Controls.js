@@ -19,6 +19,7 @@ function Range({ value, onChange }) {
         step="1"
         value={value}
         onChange={onChange}
+        aria-label="Boggle board size"
       />
     </div>
   );
