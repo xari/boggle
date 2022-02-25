@@ -1,33 +1,23 @@
 import React, { useEffect } from "react";
 import { classNames } from "./utils";
-import { createRandomBoard } from "./utils";
+import { reduceLetters, createRandomBoard } from "./utils";
 
-export function Custom({ setBoard, dimensions }) {
+export function Custom({ setBoard, dimensions, enableRandom }) {
   useEffect(() => {
     setBoard(null); // Clears the results whenever the board is resized
 
     return () => setBoard(createRandomBoard(dimensions)); // Generates a new random board on unmount
   }, [setBoard, dimensions]);
 
-  const letterCount = dimensions * dimensions;
   const handleSubmit = (e) => {
     e.preventDefault(); // Avoid page refresh
 
-    const newBoard = [...e.target.elements.letter].reduce(
-      ([acc, row], inputNode, i) => {
-        const letter = inputNode.value;
-
-        acc[row].push(letter.toLowerCase());
-
-        if (i < letterCount - 1) {
-          (i + 1) % dimensions === 0 && row++; // If 4 dimensions, new row every 5th item, .etc
-          return [acc, row];
-        } else {
-          return acc; // When no more letters to reduce, return the accumulator
-        }
-      },
-      [[...Array(dimensions).keys()].map((row) => []), 0] // Pre-fill the accumulator with empty "row" arrays
+    // Create an array of lower case letters from the input values
+    const letters = [...e.target.elements.letter].map((inputNode) =>
+      inputNode.value.toLowerCase()
     );
+
+    const newBoard = reduceLetters(dimensions)(letters);
 
     setBoard(newBoard);
   };
@@ -35,7 +25,7 @@ export function Custom({ setBoard, dimensions }) {
   return (
     <form onSubmit={handleSubmit}>
       <div className={`grid grid-cols-${dimensions} gap-1`}>
-        {[...Array(letterCount).keys()].map((i) => (
+        {[...Array(dimensions * dimensions).keys()].map((i) => (
           <div
             key={i}
             className={classNames(
@@ -90,7 +80,7 @@ export function Random({ board, setBoard, dimensions }) {
                   : dimensions === 5
                   ? "h-20 sm:h-24 w-20 sm:w-24 sm:text-2xl md:text-3xl"
                   : "h-16 sm:h-20 w-16 sm:w-20 sm:text-xl md:text-2xl",
-                "flex p-3 border-2 content-center items-center text-center rounded"
+                "flex p-3 border-2 content-center items-center text-center rounded bg-neutral-50"
               )}
             >
               <span className="w-full font-light">{letter}</span>

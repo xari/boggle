@@ -1,4 +1,4 @@
-import { solve, createRandomBoard } from "./utils";
+import { reduceLetters, solve, createRandomBoard } from "./utils";
 
 describe("generating a random Boggle board", () => {
   const dimensions = 3;
@@ -43,5 +43,19 @@ describe("finding specific words in a Boggle board", () => {
     const { words } = solve(board, dictionary);
 
     testWords.forEach((word) => expect([...words]).toContain(word));
+  });
+});
+
+describe("Reducing the board's input values", () => {
+  const dimensions = 3;
+  const inputCount = dimensions * dimensions;
+  const inputArr = [...Array(inputCount).keys()].map((letter) => ({
+    value: letter,
+  }));
+  const board = reduceLetters(dimensions)(inputArr);
+
+  test("The created board to have the right dimensions", () => {
+    expect(board.length).toEqual(dimensions);
+    board.forEach((row) => expect(row.length).toEqual(dimensions));
   });
 });

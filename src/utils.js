@@ -2,8 +2,26 @@ export function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+// Pre-fill the accumulator with empty arrays, representing board rows
+export function reduceLetters(dimensions) {
+  return (letters) =>
+    letters.reduce(
+      ([acc, row], letter, i, arr) => {
+        acc[row].push(letter);
+
+        if (i < arr.length - 1) {
+          (i + 1) % dimensions === 0 && row++; // If 4 dimensions, new row every 5th item, .etc
+          return [acc, row];
+        } else {
+          return acc; // When no more letters to reduce, return the accumulator
+        }
+      },
+      [[...Array(dimensions).keys()].map((row) => []), 0]
+    );
+}
+
 /**
- * @return Array of arrays representing values on a square board. BOARD_DIMENSION dictates the size.
+ * @return Array of arrays representing values on a square board. dimension dictates the size.
  */
 export const createRandomBoard = (dimension) => {
   const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
