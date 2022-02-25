@@ -2,7 +2,6 @@ export function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-// Pre-fill the accumulator with empty arrays, representing board rows
 export function reduceLetters(dimensions) {
   return (letters) =>
     letters.reduce(
@@ -16,7 +15,7 @@ export function reduceLetters(dimensions) {
           return acc; // When no more letters to reduce, return the accumulator
         }
       },
-      [[...Array(dimensions).keys()].map((row) => []), 0]
+      [[...Array(dimensions).keys()].map((row) => []), 0] // Pre-fill the accumulator with empty arrays, representing board rows
     );
 }
 

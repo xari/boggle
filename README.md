@@ -23,9 +23,9 @@
 
 ## Tests
 
-- Unit tests for the business logic
-- Snapshots for non-randomized parts of the UI
-- Shallow-rendering (Enzyme) for testing the randomized board
+- Unit tests for the core business logic.
+- Snapshots for the non-randomized or dynamic parts of the UI.
+- Shallow-rendering for testing the randomized Boggle board.
 
 ## Dependencies
 
@@ -49,25 +49,26 @@
 }
 ```
 
-## Parts of the codebase that offer fun discussion points
+## Parts of the codebase that I find fun and interesting
 
 ### `<App />` component ([`src/App.js`](`src/App.js`))
 
-**All application state lives in this component.**
-Memoized callbacks are passed-down to nested components that they can use to update state.
+Most application state lives in this component, and memoized callbacks are passed-down the component tree for nested components to update state.
 
-### `<Custom />` component ([`src/Board.js`](`src/Board.js`))
+### `reduceLetters()` component ([`src/utils.js`](`src/utils.js`))
 
+This is a higher-order function that is used to reduce the array of input values (`["a", "b", "c", ...]`) into an array that uses the "board" structure (`[["a", "b", "c", ...], ["d", "e", ...], ...]`).
 This component renders a series of form inputs representing each letter on the board.
-These inputs use only HTML for their validation.
-When the form is submitted, the letters must be parsed from the `NodeList` of text inputs, and reduced into the nested format that represents a Boggle board (ex. `[["l", "k", "v", ...], ...]`).
+There's also a unit test for it that you can find in [`src/utils.test.js`](`src/utils.test.js`).
 
 ## A note about accessibility
 
 I did a free audit of the app at [deque.com](https://audit.deque.com/), which passed for all checks, except for the following one about color-contrast.
 
-> This page passed 28 of our checks. But, sorry to say we did find one critical or serious problem that will affect people with Low Vision and Color-blindness.
+> This page passed 28 of our checks.
+> But, sorry to say we did find one critical or serious problem that will affect people with Low Vision and Color-blindness.
 
-I assume that this is refering to the page header, and probably also to the submit button.
+This may refer to the page header, which uses the rather novel `-webkit-text-stroke`, which may not be accounted for in the Deque test.
+It's possible that this also refers to the submit button.
 
 ![Accessibility audit preview](./accessibility-preview.png)
