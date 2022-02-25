@@ -55,7 +55,7 @@
 
 Most application state lives in this component, and memoized callbacks are passed-down the component tree for nested components to update state.
 
-### `reduceLetters()` component ([`src/utils.js`](`src/utils.js`))
+### `reduceLetters()` ([`src/utils.js`](`src/utils.js`))
 
 This is a higher-order function that is used to reduce the array of input values (`["a", "b", "c", ...]`) into an array that uses the "board" structure (`[["a", "b", "c", ...], ["d", "e", ...], ...]`).
 This component renders a series of form inputs representing each letter on the board.
