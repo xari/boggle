@@ -2,28 +2,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useAsyncMemo } from "use-async-memo";
 import Controls from "./Controls";
 import Board from "./Board";
-import { solve } from "./utils";
+import {
+  solve,
+  createEmptyBoard,
+  createRandomBoard,
+  reduceLetters,
+} from "./utils";
 import "./App.css";
 
-export function Results({ board }) {
-  // Load and memoize the dictionary
-  const dictionary = useAsyncMemo(
-    async () =>
-      await import("./dictionary_en_US.json").then((data) =>
-        data.words.filter((word) => word.length >= 3)
-      ),
-    []
-  );
-
-  const [results, setResults] = useState(null);
-
-  useEffect(
-    () =>
-      dictionary &&
-      setResults(board !== null ? solve(board, dictionary) : null),
-    [board, dictionary]
-  );
-
+export function Results({ results }) {
   const { words, timeToSolve } = results !== null && results;
 
   return (
@@ -55,19 +42,45 @@ export function Results({ board }) {
 }
 
 function App() {
+  // Load and memoize the dictionary
+  const dictionary = useAsyncMemo(
+    async () =>
+      await import("./dictionary_en_US.json").then((data) =>
+        data.words.filter((word) => word.length >= 3)
+      ),
+    []
+  );
+
   // State
   const [dimensions, setDimensions] = useState(4);
-  const [enableRandom, setEnableRandom] = useState(false);
-  const [board, setBoard] = useState(null);
+  const [enabledRandom, setEnabledRandom] = useState(false);
+  const [board, setBoard] = useState(createEmptyBoard(dimensions));
+  const [submitted, setSubmitted] = useState(false);
+  const [results, setResults] = useState(null);
+
+  // When the settings change...
+  useEffect(() => {
+    setSubmitted(false);
+    setResults(null);
+    enabledRandom // Refresh the board
+      ? setBoard(createRandomBoard(dimensions))
+      : setBoard(createEmptyBoard(dimensions));
+  }, [enabledRandom, dimensions]);
+
+  // When submitted...
+  useEffect(() => {
+    if (dictionary && submitted === true)
+      setResults(solve(reduceLetters(board), dictionary));
+  }, [board, submitted, dictionary]);
 
   // Controlled & memoized state updaters
   const updateDimensions = useCallback(
     (e) => setDimensions(parseInt(e.target.value)),
     [setDimensions]
   );
-  const updateEnableRandom = useCallback(
-    () => setEnableRandom(!enableRandom),
-    [enableRandom, setEnableRandom]
+  const updateEnabledRandom = useCallback(
+    () => setEnabledRandom(!enabledRandom),
+    [enabledRandom, setEnabledRandom]
   );
   const updateBoard = useCallback(
     (newBoard) => {
@@ -75,6 +88,7 @@ function App() {
     },
     [setBoard]
   );
+  const updateSubmitted = useCallback(() => setSubmitted(true), [setSubmitted]);
 
   return (
     <div className="my-8 mx-auto w-full max-w-xl px-4 sm:px-6 lg:px-8">
@@ -84,16 +98,16 @@ function App() {
       <Controls
         dimensions={dimensions}
         setDimensions={updateDimensions}
-        enableRandom={enableRandom}
-        setEnableRandom={updateEnableRandom}
+        enabledRandom={enabledRandom}
+        setEnabledRandom={updateEnabledRandom}
       />
       <Board
         board={board}
+        enabledRandom={enabledRandom}
         setBoard={updateBoard}
-        dimensions={dimensions}
-        enableRandom={enableRandom}
+        setSubmitted={updateSubmitted}
       />
-      <Results board={board} />
+      <Results results={results} />
     </div>
   );
 }

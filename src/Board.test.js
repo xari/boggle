@@ -1,43 +1,80 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import { shallow } from "enzyme";
-import { Custom, Random } from "./Board";
+import ReactDOM from "react-dom";
+import { act } from "react-dom/test-utils";
+import TestRenderer from "react-test-renderer";
+import Board from "./Board";
 
-describe("the Random board", () => {
-  const board = [
-    ["v", "z", "g", "x"],
-    ["j", "z", "g", "b"],
-    ["t", "b", "j", "r"],
-    ["u", "a", "c", "p"],
-  ];
-  const wrapper = shallow(<Random board={board} />);
-  const grid = wrapper.find(".grid");
+const board = [
+  "v",
+  "z",
+  "g",
+  "x",
+  "j",
+  "z",
+  "g",
+  "b",
+  "t",
+  "b",
+  "j",
+  "r",
+  "u",
+  "a",
+  "c",
+  "p",
+];
 
-  test("should be the correct length", () => {
-    expect(grid.children()).toHaveLength(16);
-  });
+describe("The <Board/>", () => {
+  const testRenderer = TestRenderer.create(
+    <Board board={board} enabledRandom={false} />
+  );
+  const testInstance = testRenderer.root;
 
-  test("should contain all of the letters", () => {
-    const boardArr = board.flatMap((x) => x);
-
-    grid
-      .find("span")
-      .forEach((node, i) => expect(node.text()).toEqual(boardArr[i]));
-  });
-});
-
-describe("the Custom board", () => {
-  const dimensions = 4;
-  const letterCount = 4 * 4;
-  const wrapper = shallow(<Custom dimensions={dimensions} />);
-  const grid = wrapper.find(".grid");
-
-  test("should render the right number of inputs", () => {
-    expect(grid.children()).toHaveLength(letterCount);
+  test("Should contain all of the letters", () => {
+    testInstance
+      .findAllByProps({ type: "text" })
+      .forEach((node, i) => expect(node.props.value).toEqual(board[i]));
   });
 
   it("renders without any unexpected changes", () => {
-    const tree = renderer.create(<Custom dimensions={dimensions} />).toJSON();
+    const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+});
+
+describe("mocking the form submission", () => {
+  let container;
+
+  beforeEach(() => {
+    container = document.createElement("div");
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    document.body.removeChild(container);
+    container = null;
+  });
+
+  // Set-up mocks
+  const onSetSubmitted = jest.fn();
+
+  test("Should call the mocked setBoard() callback when submitted", () => {
+    act(() => {
+      ReactDOM.render(
+        <Board
+          board={board}
+          enabledRandom={false}
+          setSubmitted={onSetSubmitted}
+        />,
+        container
+      );
+    });
+
+    const submitBtn = container.querySelector("input[type='submit']");
+
+    act(() => {
+      submitBtn.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+
+    expect(onSetSubmitted.mock.calls.length).toBe(1);
   });
 });

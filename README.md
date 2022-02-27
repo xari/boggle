@@ -25,7 +25,8 @@
 
 - Unit tests for the core business logic.
 - Snapshots for the non-randomized or dynamic parts of the UI.
-- Shallow-rendering for testing the randomized Boggle board.
+- Shallow-rendering for testing the randomized parts of the UI.
+- Mocked callback to test the form submission [`src/Board.test.js`](`src/Board.test.js`).
 
 ## Dependencies
 
@@ -39,9 +40,7 @@
     "use-async-memo": "^1.2.3"
   },
   "devDependencies": {
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "autoprefixer": "^10.4.2",
-    "enzyme": "^3.11.0",
     "gh-pages": "^3.2.3",
     "postcss": "^8.4.6",
     "tailwindcss": "^3.0.23"
@@ -51,24 +50,20 @@
 
 ## Parts of the codebase that I find fun and interesting
 
-### `<App />` component ([`src/App.js`](`src/App.js`))
+### `<App />` ([`src/App.js`](`src/App.js`))
 
-Most application state lives in this component, and memoized callbacks are passed-down the component tree for nested components to update state.
+All application state lives in this component.
+Memoized callbacks are passed-down to nested components for them to update state with.
 
-### `reduceLetters()` ([`src/utils.js`](`src/utils.js`))
-
-This is a higher-order function that is used to reduce the array of input values (`["a", "b", "c", ...]`) into an array that uses the "board" structure (`[["a", "b", "c", ...], ["d", "e", ...], ...]`).
-This component renders a series of form inputs representing each letter on the board.
-There's also a unit test for it that you can find in [`src/utils.test.js`](`src/utils.test.js`).
-
-## A note about accessibility
+## Accessibility
 
 I did a free audit of the app at [deque.com](https://audit.deque.com/), which passed for all checks, except for the following one about color-contrast.
 
 > This page passed 28 of our checks.
 > But, sorry to say we did find one critical or serious problem that will affect people with Low Vision and Color-blindness.
+>
+> The contrast between the text color and background color for one of the page's elements isn't high enough, making the text difficult to read.
 
-This may refer to the page header, which uses the rather novel `-webkit-text-stroke`, which may not be accounted for in the Deque test.
-It's possible that this also refers to the submit button.
+I suspect this refers to the _"Boggle!"_ header, which uses the rather novel [`-webkit-text-stroke`](https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-text-stroke), which the Deque test either doesn't account for, intentionally discounts it due to it's non-standard status.
 
 ![Accessibility audit preview](./accessibility-preview.png)

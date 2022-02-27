@@ -1,16 +1,25 @@
 import { reduceLetters, solve, createRandomBoard } from "./utils";
 
-describe("generating a random Boggle board", () => {
+describe("A random Boggle board", () => {
   const dimensions = 3;
   const board = createRandomBoard(dimensions);
 
   test("it should have the correct dimensions", () => {
-    expect(board).toHaveLength(dimensions);
-
-    [...Array(dimensions).keys()].forEach((col) =>
-      expect(board[col]).toHaveLength(dimensions)
-    );
+    expect(board).toHaveLength(dimensions * dimensions);
   });
+
+  test("it should reduce to the board structure", () => {
+    const structuredBoard = reduceLetters(board);
+
+    expect(structuredBoard).toHaveLength(dimensions);
+    structuredBoard.forEach((col) => expect(col).toHaveLength(dimensions));
+  });
+});
+
+let dictionary;
+
+import("./dictionary_en_US.json").then((data) => {
+  dictionary = data.words.filter((word) => word.length >= 3);
 });
 
 describe("finding specific words in a Boggle board", () => {
@@ -33,12 +42,6 @@ describe("finding specific words in a Boggle board", () => {
     "jat",
   ];
 
-  let dictionary;
-
-  import("./dictionary_en_US.json").then((data) => {
-    dictionary = data.words.filter((word) => word.length >= 3);
-  });
-
   test("the board contains the words", () => {
     const { words } = solve(board, dictionary);
 
@@ -52,7 +55,7 @@ describe("Reducing the board's input values", () => {
   const inputArr = [...Array(inputCount).keys()].map((letter) => ({
     value: letter,
   }));
-  const board = reduceLetters(dimensions)(inputArr);
+  const board = reduceLetters(inputArr);
 
   test("The created board to have the right dimensions", () => {
     expect(board.length).toEqual(dimensions);

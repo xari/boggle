@@ -25,7 +25,7 @@ function Range({ value, onChange }) {
   );
 }
 
-function BoardSwitch({ enableRandom, setEnableRandom }) {
+function BoardSwitch({ enabledRandom, setEnabledRandom }) {
   return (
     <Switch.Group as="div">
       <span className="flex-grow flex flex-col">
@@ -41,17 +41,17 @@ function BoardSwitch({ enableRandom, setEnableRandom }) {
         </Switch.Description>
       </span>
       <Switch
-        checked={enableRandom}
-        onChange={setEnableRandom}
+        checked={enabledRandom}
+        onChange={setEnabledRandom}
         className={classNames(
-          enableRandom ? "bg-indigo-600" : "bg-gray-200",
+          enabledRandom ? "bg-indigo-600" : "bg-gray-200",
           "my-2 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         )}
       >
         <span
           aria-hidden="true"
           className={classNames(
-            enableRandom ? "translate-x-5" : "translate-x-0",
+            enabledRandom ? "translate-x-5" : "translate-x-0",
             "pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
           )}
         />
@@ -63,15 +63,15 @@ function BoardSwitch({ enableRandom, setEnableRandom }) {
 export default function Controls({
   dimensions,
   setDimensions,
-  enableRandom,
-  setEnableRandom,
+  enabledRandom,
+  setEnabledRandom,
 }) {
   return (
     <>
       <Range value={dimensions} onChange={setDimensions} />
       <BoardSwitch
-        enableRandom={enableRandom}
-        setEnableRandom={setEnableRandom}
+        enabledRandom={enabledRandom}
+        setEnabledRandom={setEnabledRandom}
       />
     </>
   );

@@ -2,38 +2,37 @@ export function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function reduceLetters(dimensions) {
-  return (letters) =>
-    letters.reduce(
-      ([acc, row], letter, i, arr) => {
-        acc[row].push(letter);
+export function reduceLetters(letters) {
+  const dimensions = Math.sqrt(letters.length);
 
-        if (i < arr.length - 1) {
-          (i + 1) % dimensions === 0 && row++; // If 4 dimensions, new row every 5th item, .etc
-          return [acc, row];
-        } else {
-          return acc; // When no more letters to reduce, return the accumulator
-        }
-      },
-      [[...Array(dimensions).keys()].map((row) => []), 0] // Pre-fill the accumulator with empty arrays, representing board rows
-    );
+  return letters.reduce(
+    ([acc, row], letter, i, arr) => {
+      acc[row].push(letter);
+
+      if (i < arr.length - 1) {
+        (i + 1) % dimensions === 0 && row++; // If 4 dimensions, new row every 5th item, .etc
+        return [acc, row];
+      } else {
+        return acc; // When no more letters to reduce, return the accumulator
+      }
+    },
+    [[...Array(dimensions).keys()].map((row) => []), 0] // Pre-fill the accumulator with empty arrays, representing board rows
+  );
 }
 
-/**
- * @return Array of arrays representing values on a square board. dimension dictates the size.
- */
-export const createRandomBoard = (dimension) => {
-  const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+export const createRandomBoard = (dimensions) => {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-  let boardValues = [];
-  for (let i = 0; i < dimension; i++) {
-    boardValues[i] = [];
-    for (let j = 0; j < dimension; j++) {
-      boardValues[i][j] = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
-    }
-  }
-  return boardValues;
+  return [...Array(dimensions * dimensions)].map(
+    (x) => alphabet[Math.floor(Math.random() * alphabet.length)]
+  );
 };
+
+export const createEmptyBoard = (dimensions) => [
+  ...Array(dimensions * dimensions)
+    .join(".")
+    .split("."),
+];
 
 // I derived this Trie/DFS approach from the following GitHub Gist.
 // I refactored it to clean-up the overall syntax, and to add my own comments about how it works.
