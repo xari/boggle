@@ -5,6 +5,7 @@ export default function Board({
   board,
   enabledRandom,
   setBoard,
+  submitted,
   setSubmitted,
 }) {
   const dimensions = Math.sqrt(board.length);
@@ -43,13 +44,15 @@ export default function Board({
                   required
                   aria-label="Boggle letter"
                   value={value}
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    submitted === true && setSubmitted(true); // true means reset
+
                     setBoard([
                       ...arr.slice(0, i),
                       e.target.value.toLowerCase(),
                       ...arr.slice(i + 1),
-                    ])
-                  }
+                    ]);
+                  }}
                 />
               </div>
             ))}

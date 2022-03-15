@@ -67,10 +67,12 @@ function App() {
       : setBoard(createEmptyBoard(dimensions));
   }, [enabledRandom, dimensions]);
 
-  // When submitted...
+  // Runs when submitted...
+  // or when one of the text inputs is updated after a submission.
   useEffect(() => {
-    if (dictionary && submitted === true)
-      setResults(solve(reduceLetters(board), dictionary));
+    dictionary && submitted === true
+      ? setResults(solve(reduceLetters(board), dictionary))
+      : setResults(null);
   }, [board, submitted, dictionary]);
 
   // Controlled & memoized state updaters
@@ -88,7 +90,11 @@ function App() {
     },
     [setBoard]
   );
-  const updateSubmitted = useCallback(() => setSubmitted(true), [setSubmitted]);
+  const updateSubmitted = useCallback(
+    (reset) =>
+      reset === true ? setSubmitted(false) : setSubmitted(!submitted),
+    [submitted, setSubmitted]
+  );
 
   return (
     <div className="my-8 mx-auto w-full max-w-xl px-4 sm:px-6 lg:px-8">
@@ -105,6 +111,7 @@ function App() {
         board={board}
         enabledRandom={enabledRandom}
         setBoard={updateBoard}
+        submitted={submitted}
         setSubmitted={updateSubmitted}
       />
       <Results results={results} />
