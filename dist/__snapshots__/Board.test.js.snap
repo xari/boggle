@@ -1,0 +1,266 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The <Board/> renders without any unexpected changes 1`] = `
+<div
+  className="my-3 mx-auto flex"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <fieldset
+      disabled=""
+    >
+      <div
+        className="grid grid-cols-4 gap-1"
+      >
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="v"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="z"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="g"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="x"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="j"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="z"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="g"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="b"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="t"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="b"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="j"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="r"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="u"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="a"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="c"
+          />
+        </div>
+        <div
+          className="h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl flex border-2 content-center items-center text-center rounded"
+        >
+          <input
+            aria-label="Boggle letter"
+            className="h-full w-full font-light text-center focus:outline-none"
+            maxLength="1"
+            name="letter"
+            onChange={[Function]}
+            pattern="[A-Za-z]"
+            required={true}
+            type="text"
+            value="p"
+          />
+        </div>
+      </div>
+    </fieldset>
+    <input
+      aria-label="Solve the board"
+      className="my-3 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      type="submit"
+      value="Find all words"
+    />
+  </form>
+</div>
+`;
