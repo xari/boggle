@@ -1,6 +1,6 @@
 {
   "name": "xari-boggle",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "homepage": "https://xari.github.io/boggle/",

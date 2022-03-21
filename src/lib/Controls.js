@@ -37,7 +37,7 @@ function BoardSwitch({ enabledRandom, setEnabledRandom }) {
           Solve an auto-generated board instead
         </Switch.Label>
         <Switch.Description as="span" className="text-sm text-gray-500">
-          Toggle betwenn an auto-generated board and a customizable one.
+          Toggle between an auto-generated board and a customizable one.
         </Switch.Description>
       </span>
       <Switch

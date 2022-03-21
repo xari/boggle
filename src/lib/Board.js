@@ -19,7 +19,16 @@ export default function Board({
     <div className="my-3 mx-auto flex">
       <form onSubmit={handleSubmit}>
         <fieldset disabled={enabledRandom ? "disabled" : ""}>
-          <div className={`grid grid-cols-${dimensions} gap-1`}>
+          <div
+            className={classNames(
+              dimensions === 4
+                ? "grid-cols-4"
+                : dimensions === 5
+                ? "grid-cols-5"
+                : "grid-cols-6",
+              "grid gap-1"
+            )}
+          >
             {board.map((value, i, arr) => (
               <div
                 key={i}

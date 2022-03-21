@@ -36,7 +36,7 @@ function Board(_ref) {
   }, /*#__PURE__*/_react.default.createElement("fieldset", {
     disabled: enabledRandom ? "disabled" : ""
   }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "grid grid-cols-".concat(dimensions, " gap-1")
+    className: (0, _utils.classNames)(dimensions === 4 ? "grid-cols-4" : dimensions === 5 ? "grid-cols-5" : "grid-cols-6", "grid gap-1")
   }, board.map((value, i, arr) => /*#__PURE__*/_react.default.createElement("div", {
     key: i,
     className: (0, _utils.classNames)(dimensions === 4 ? "h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl" : dimensions === 5 ? "h-20 sm:h-24 w-20 sm:w-24 sm:text-2xl md:text-3xl" : "h-16 sm:h-20 w-16 sm:w-20 sm:text-xl md:text-2xl", "flex border-2 content-center items-center text-center rounded")
