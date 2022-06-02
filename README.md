@@ -1,5 +1,7 @@
 # Boggle!
 
+Hosted [here](https://xari.github.io/boggle/), screenshot below.
+
 ![Screenshot of the app](./preview.png)
 
 ## Features
