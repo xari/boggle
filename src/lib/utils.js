@@ -16,7 +16,7 @@ export function reduceLetters(letters) {
         return acc; // When no more letters to reduce, return the accumulator
       }
     },
-    [[...Array(dimensions).keys()].map((row) => []), 0] // Pre-fill the accumulator with empty arrays, representing board rows
+    [[...new Array(dimensions).keys()].map((row) => []), 0] // Pre-fill the accumulator with empty arrays, representing board rows
   );
 }
 
