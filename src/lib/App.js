@@ -15,7 +15,7 @@ export function Results({ results }) {
 
   return (
     <div className="my-5">
-      {typeof timeToSolve !== "undefined" && (
+      {timeToSolve !== undefined && (
         <p className="text-lg">
           It took{" "}
           <span className="font-semibold">
@@ -27,7 +27,7 @@ export function Results({ results }) {
         </p>
       )}
       <div className="flex flex-wrap py-2 -mx-1 w-full">
-        {typeof words !== "undefined" &&
+        {words !== undefined &&
           Array.from(words).map((word, i) => (
             <div
               key={i}
@@ -77,7 +77,7 @@ function App() {
 
   // Controlled & memoized state updaters
   const updateDimensions = useCallback(
-    (e) => setDimensions(parseInt(e.target.value)),
+    (e) => setDimensions(Number.parseInt(e.target.value)),
     [setDimensions]
   );
   const updateEnabledRandom = useCallback(

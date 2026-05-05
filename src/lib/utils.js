@@ -59,8 +59,7 @@ const MakeTrie = function (dict) {
     let curNode = root;
 
     // Loop through the letters in each word
-    for (let i = 0; i < word.length; i++) {
-      const curLetter = word[i];
+    for (const curLetter of word) {
       const code = curLetter.charCodeAt(0) - 97;
 
       // Make sure the character is in a-z

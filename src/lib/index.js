@@ -1,5 +1,3 @@
-import App, { Results } from "./App";
-import Board from "./Board";
-import Controls from "./Controls";
-
-export { App, Results, Board, Controls };
+export { default as App, Results } from "./App";
+export { default as Board } from "./Board";
+export { default as Controls } from "./Controls";
