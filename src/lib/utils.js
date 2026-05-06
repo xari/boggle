@@ -16,23 +16,20 @@ export function reduceLetters(letters) {
         return acc; // When no more letters to reduce, return the accumulator
       }
     },
-    [[...Array(dimensions).keys()].map((row) => []), 0] // Pre-fill the accumulator with empty arrays, representing board rows
+    [[...new Array(dimensions).keys()].map((row) => []), 0] // Pre-fill the accumulator with empty arrays, representing board rows
   );
 }
 
 export const createRandomBoard = (dimensions) => {
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-  return [...Array(dimensions * dimensions)].map(
-    (x) => alphabet[Math.floor(Math.random() * alphabet.length)]
+  return Array.from({length: dimensions * dimensions}, () =>
+    alphabet[Math.floor(Math.random() * alphabet.length)]
   );
 };
 
-export const createEmptyBoard = (dimensions) => [
-  ...Array(dimensions * dimensions)
-    .join(".")
-    .split("."),
-];
+export const createEmptyBoard = (dimensions) =>
+  new Array(dimensions * dimensions).join(".").split(".");
 
 // I derived this Trie/DFS approach from the following GitHub Gist.
 // I refactored it to clean-up the overall syntax, and to add my own comments about how it works.
@@ -45,7 +42,7 @@ const TrieNode = function (parent, value) {
   this.isWord = false;
 
   // Check whether is root
-  if (typeof parent !== "undefined") {
+  if (parent !== undefined) {
     parent.children[value.charCodeAt(0) - 97] = this; // https://stackoverflow.com/questions/22624379/how-to-convert-letters-to-numbers-with-javascript
   }
 };
