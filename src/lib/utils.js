@@ -46,7 +46,7 @@ const TrieNode = function (parent, value) {
 
   // Check whether is root
   if (typeof parent !== "undefined") {
-    parent.children[value.charCodeAt(0) - 97] = this; // https://stackoverflow.com/questions/22624379/how-to-convert-letters-to-numbers-with-javascript
+    parent.children[value.codePointAt(0) - 97] = this; // https://stackoverflow.com/questions/22624379/how-to-convert-letters-to-numbers-with-javascript
   }
 };
 
@@ -61,14 +61,14 @@ const MakeTrie = function (dict) {
     // Loop through the letters in each word
     for (let i = 0; i < word.length; i++) {
       const curLetter = word[i];
-      const code = curLetter.charCodeAt(0) - 97;
+      const code = curLetter.codePointAt(0) - 97;
 
       // Make sure the character is in a-z
       if (96 < code < 123) {
         let nextNode = curNode.children[code];
 
         // Don't repeat characters!
-        if (typeof nextNode === "undefined") {
+        if (nextNode === undefined) {
           nextNode = new TrieNode(curNode, curLetter);
         }
 
@@ -92,11 +92,11 @@ const boggle = function (grid, dict, mustHave) {
   for (let y = 0; y < cols; y++) {
     for (let x = 0; x < rows; x++) {
       const curLetter = grid[y][x];
-      const code = curLetter.charCodeAt(0);
+      const code = curLetter.codePointAt(0);
       const node = dict.children[code - 97]; // Get code relative to "a"
 
       // Make sure that the dictionary contains a word beginning with the current letter
-      if (typeof node !== "undefined") {
+      if (node !== undefined) {
         queue.push([x, y, curLetter, node, [[x, y]]]); // [x, y] === board position
       }
     }
@@ -119,7 +119,7 @@ const boggle = function (grid, dict, mustHave) {
       const [x2, y2] = [x + dx, y + dy];
 
       // Make the next move is on the board
-      if (typeof h.find((el) => el[0] === x2 && el[1] === y2) !== "undefined") {
+      if (h.some((el) => el[0] === x2 && el[1] === y2)) {
         continue;
       }
 
@@ -129,12 +129,12 @@ const boggle = function (grid, dict, mustHave) {
         newHist.push([x2, y2]); // Push the next move to the history
 
         const s2 = s + grid[y2][x2]; // Concat the next letter to the word string
-        const node2 = node.children[grid[y2][x2].charCodeAt(0) - 97]; // Make sure there's a next word
+        const node2 = node.children[grid[y2][x2].codePointAt(0) - 97]; // Make sure there's a next word
 
-        if (typeof node2 !== "undefined") {
+        if (node2 !== undefined) {
           if (node2.isWord) {
             // This mustHave flag allows a letter to be specified; not actually necessary for the Rstudio exercise
-            if (typeof mustHave === "undefined" || s2.indexOf(mustHave) !== -1)
+            if (mustHave === undefined || s2.indexOf(mustHave) !== -1)
               words.add(s2);
           }
 
