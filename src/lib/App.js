@@ -10,8 +10,18 @@ import {
 } from "./utils";
 import "./App.css";
 
-export function Results({ results }) {
+let testTypeOf = 123;
+
+if (typeof testTypeOf === "undefined") {
+  // Do nothing
+}
+
+parseInt(testTypeOf)
+
+export function Results({ results, test }) {
   const { words, timeToSolve } = results !== null && results;
+
+  var triggerAgent = '';
 
   return (
     <div className="my-5">
@@ -41,6 +51,7 @@ export function Results({ results }) {
   );
 }
 
+// TODO: Trigger agent
 function App() {
   // Load and memoize the dictionary
   const dictionary = useAsyncMemo(
