@@ -1,5 +1,24 @@
-import React from "react";
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
 import { classNames } from "./utils";
+
+function getGridColsClass(dimensions) {
+  if (dimensions === 4) {
+    return "grid-cols-4";
+  } else if (dimensions === 5) {
+    return "grid-cols-5";
+  }
+  return "grid-cols-6";
+}
+
+function getCellSizeClass(dimensions) {
+  if (dimensions === 4) {
+    return "h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl";
+  } else if (dimensions === 5) {
+    return "h-20 sm:h-24 w-20 sm:w-24 sm:text-2xl md:text-3xl";
+  }
+  return "h-16 sm:h-20 w-16 sm:w-20 sm:text-xl md:text-2xl";
+}
 
 export default function Board({
   board,
@@ -9,6 +28,10 @@ export default function Board({
   setSubmitted,
 }) {
   const dimensions = Math.sqrt(board.length);
+  const cellKeys = useMemo(
+    () => board.map((_, i) => `cell-${i}`),
+    [board.length]
+  );
   const handleSubmit = (e) => {
     e.preventDefault(); // Avoid page refresh
 
@@ -21,23 +44,15 @@ export default function Board({
         <fieldset disabled={enabledRandom ? "disabled" : ""}>
           <div
             className={classNames(
-              dimensions === 4
-                ? "grid-cols-4"
-                : dimensions === 5
-                ? "grid-cols-5"
-                : "grid-cols-6",
+              getGridColsClass(dimensions),
               "grid gap-1"
             )}
           >
             {board.map((value, i, arr) => (
               <div
-                key={i}
+                key={cellKeys[i]}
                 className={classNames(
-                  dimensions === 4
-                    ? "h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl"
-                    : dimensions === 5
-                    ? "h-20 sm:h-24 w-20 sm:w-24 sm:text-2xl md:text-3xl"
-                    : "h-16 sm:h-20 w-16 sm:w-20 sm:text-xl md:text-2xl",
+                  getCellSizeClass(dimensions),
                   "flex border-2 content-center items-center text-center rounded"
                 )}
               >
@@ -77,3 +92,11 @@ export default function Board({
     </div>
   );
 }
+
+Board.propTypes = {
+  board: PropTypes.arrayOf(PropTypes.string).isRequired,
+  enabledRandom: PropTypes.bool.isRequired,
+  setBoard: PropTypes.func,
+  submitted: PropTypes.bool,
+  setSubmitted: PropTypes.func,
+};
