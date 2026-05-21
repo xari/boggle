@@ -119,7 +119,7 @@ const boggle = function (grid, dict, mustHave) {
       const [x2, y2] = [x + dx, y + dy];
 
       // Make the next move is on the board
-      if (typeof h.find((el) => el[0] === x2 && el[1] === y2) !== "undefined") {
+      if (h.some((el) => el[0] === x2 && el[1] === y2)) {
         continue;
       }
 
@@ -129,12 +129,12 @@ const boggle = function (grid, dict, mustHave) {
         newHist.push([x2, y2]); // Push the next move to the history
 
         const s2 = s + grid[y2][x2]; // Concat the next letter to the word string
-        const node2 = node.children[grid[y2][x2].charCodeAt(0) - 97]; // Make sure there's a next word
+        const node2 = node.children[grid[y2][x2].codePointAt(0) - 97]; // Make sure there's a next word
 
-        if (typeof node2 !== "undefined") {
+        if (node2 !== undefined) {
           if (node2.isWord) {
             // This mustHave flag allows a letter to be specified; not actually necessary for the Rstudio exercise
-            if (typeof mustHave === "undefined" || s2.indexOf(mustHave) !== -1)
+            if (mustHave === undefined || s2.includes(mustHave))
               words.add(s2);
           }
 
