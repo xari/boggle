@@ -52,7 +52,7 @@ describe("finding specific words in a Boggle board", () => {
 describe("Reducing the board's input values", () => {
   const dimensions = 3;
   const inputCount = dimensions * dimensions;
-  const inputArr = [...Array(inputCount).keys()].map((letter) => ({
+  const inputArr = [...new Array(inputCount).keys()].map((letter) => ({
     value: letter,
   }));
   const board = reduceLetters(inputArr);

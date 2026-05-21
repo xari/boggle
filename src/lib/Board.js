@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { classNames } from "./utils";
 
 export default function Board({
@@ -77,3 +78,11 @@ export default function Board({
     </div>
   );
 }
+
+Board.propTypes = {
+  board: PropTypes.arrayOf(PropTypes.string).isRequired,
+  enabledRandom: PropTypes.bool.isRequired,
+  setBoard: PropTypes.func.isRequired,
+  submitted: PropTypes.bool.isRequired,
+  setSubmitted: PropTypes.func.isRequired,
+};
