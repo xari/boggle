@@ -9,6 +9,16 @@ export default function Board({
   setSubmitted,
 }) {
   const dimensions = Math.sqrt(board.length);
+
+  const getCellSizeClass = () => {
+    if (dimensions === 4) {
+      return "h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl";
+    } else if (dimensions === 5) {
+      return "h-20 sm:h-24 w-20 sm:w-24 sm:text-2xl md:text-3xl";
+    }
+    return "h-16 sm:h-20 w-16 sm:w-20 sm:text-xl md:text-2xl";
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault(); // Avoid page refresh
 
@@ -33,11 +43,7 @@ export default function Board({
               <div
                 key={i}
                 className={classNames(
-                  dimensions === 4
-                    ? "h-24 sm:h-28 w-24 sm:w-28 text-3xl sm:text-4xl"
-                    : dimensions === 5
-                    ? "h-20 sm:h-24 w-20 sm:w-24 sm:text-2xl md:text-3xl"
-                    : "h-16 sm:h-20 w-16 sm:w-20 sm:text-xl md:text-2xl",
+                  getCellSizeClass(),
                   "flex border-2 content-center items-center text-center rounded"
                 )}
               >

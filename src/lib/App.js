@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useAsyncMemo } from "use-async-memo";
 import Controls from "./Controls";
 import Board from "./Board";
@@ -28,9 +29,9 @@ export function Results({ results }) {
       )}
       <div className="flex flex-wrap py-2 -mx-1 w-full">
         {typeof words !== "undefined" &&
-          Array.from(words).map((word, i) => (
+          Array.from(words).map((word) => (
             <div
-              key={i}
+              key={word}
               className="m-1 px-2 py-0 text-sm font-light text-emerald-800 bg-gray-100 border border-emerald-800 rounded-lg"
             >
               {word}
@@ -40,6 +41,16 @@ export function Results({ results }) {
     </div>
   );
 }
+
+Results.propTypes = {
+  results: PropTypes.shape({
+    words: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.instanceOf(Set),
+    ]),
+    timeToSolve: PropTypes.number,
+  }),
+};
 
 function App() {
   // Load and memoize the dictionary

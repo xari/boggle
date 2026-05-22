@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Switch } from "@headlessui/react";
 import { classNames } from "./utils";
 import "./Controls.css";
@@ -76,3 +77,10 @@ export default function Controls({
     </>
   );
 }
+
+Controls.propTypes = {
+  dimensions: PropTypes.number.isRequired,
+  setDimensions: PropTypes.func.isRequired,
+  enabledRandom: PropTypes.bool.isRequired,
+  setEnabledRandom: PropTypes.func.isRequired,
+};
