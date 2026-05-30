@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Switch } from "@headlessui/react";
 import { classNames } from "./utils";
 import "./Controls.css";
@@ -7,12 +8,13 @@ function Range({ value, onChange }) {
   return (
     <div className="my-2">
       <span className="flex-grow flex flex-col">
-        <label className="text-md font-medium text-gray-900">Board size</label>
+        <label htmlFor="board-size" className="text-md font-medium text-gray-900">Board size</label>
         <span className="text-sm text-gray-500">
           Slide the bar to resize the board.
         </span>
       </span>
       <input
+        id="board-size"
         type="range"
         min="4"
         max="6"
@@ -24,6 +26,11 @@ function Range({ value, onChange }) {
     </div>
   );
 }
+
+Range.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 function BoardSwitch({ enabledRandom, setEnabledRandom }) {
   return (

@@ -149,7 +149,7 @@ const boggle = function (grid, dict, mustHave) {
 };
 
 export function solve(board, dictionary) {
-  var d = new MakeTrie(new Set(dictionary));
+  const d = new MakeTrie(new Set(dictionary));
 
   const grid = board.map((row) => row.join(""));
 
